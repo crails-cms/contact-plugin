@@ -1,0 +1,35 @@
+#include <crails/i18n.hpp>
+#include <crails/html_form_builder.hpp>
+#include <crails/cms/routes.hpp>
+#include <crails/cms/views/style.hpp>
+#include "app/models/contact_page.hpp"
+
+const Crails::Cms::Style&     style = Crails::Cms::Style::singleton::require();
+const Crails::Cms::LocalRoute route = Crails::Cms::LocalRoute(vars);
+const ContactPage&            @model;
+
+Crails::FormBuilder<ContactPage> form = Crails::FormBuilder<ContactPage>(this, model);
+
+using namespace Crails::Cms;
+
+// END LINKING
+
+<%= form_for(model, route(), {{"class",style.form_classes() + "contact-page-form"},{"id","main-form"}}) yields %>
+  <%= style.form_group() yields %>
+    <%= form.label_for("sender") %>
+    <%= form.mail_field("sender", &ContactPage::get_sender_address) %>
+  <% yields-end %>
+
+  <%= style.form_group() yields %>
+    <%= form.label_for("address") %>
+    <%= form.mail_field("address", &ContactPage::get_address) %>
+  <% yields-end %>
+
+  <%= form.text_area("content", &ContactPage::get_content) %>
+<% yields-end %>
+
+<div class="<%= style.button_group_classes() %>">
+  <%= style.admin_submit_button("main-form") %>
+</div>
+
+<script>proudcmsAdminCKEditor("<%= form.scoped_name("content") %>");</script>

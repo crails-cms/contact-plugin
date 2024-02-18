@@ -1,0 +1,48 @@
+#include <crails/cms/views/style.hpp>
+#include <crails/i18n.hpp>
+#include "app/models/contact_page.hpp"
+
+const Crails::Cms::Style& style = Crails::Cms::Style::singleton::require();
+const ContactPage& @contact_page;
+const std::string @sender = std::string();
+const std::string @message = std::string();
+const std::string @error_message = std::string();
+bool @failure = false;
+
+// END LINKING
+<% if (contact_page.get_content().length()) do %>
+  <%= style.section(0, {{"class","contact-content"}}) yields %>
+    <h1>Contact</h1>
+    <%= contact_page.get_content() %>
+  <% yields-end %>
+<% end %>
+
+<%= style.section(1, {{"class","contact-form"}}) yields %>
+  <% if (failure) do %>
+    <div class="error">
+      <%= error_message %>
+    </div>
+  <% end %>
+
+  <%= form({{"action", "/contact"}, {"method", "POST"}}) yields %>
+    <%= style.form_group() yields %>
+      <label for="contact[email]">
+        <%= i18n::t("contact-page.form.email") %>
+      </label>
+      <%= mail_field("contact[email]", sender) %>
+    <% yields-end %>
+
+    <%= style.form_group() yields %>
+      <label for="contact[message]">
+        <%= i18n::t("contact-page.form.message") %>
+      </label>
+      <%= text_area("contact[message]", message) %>
+    <% yields-end %>
+
+    <%= tag("input", {
+      {"type","submit"},
+      {"class",style.button_classes()},
+      {"value", i18n::t("contct-page.form.submit")}
+    }) %>
+  <% yields-end %>
+<% yields-end %>

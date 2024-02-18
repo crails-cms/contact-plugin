@@ -1,0 +1,20 @@
+#include <crails/cms/models/settings.hpp>
+
+const Crails::Cms::Settings& @settings;
+const std::string @sender;
+const std::string @message;
+
+// END LINKING
+<p>
+  <i>
+    Ce message vous a &eacute;t&eacute; envoy&eacute; depuis votre site web
+    <%= link("http://" + settings.get_public_url(), settings.get_public_url()) %>.
+  </i>
+</p>
+
+<p>
+  <b>Exp&eacute;diteur :</b> <%= sender %><br/>
+  <b>Message :</b><br/><br/>
+
+  <pre><%= html_escape(message) %></pre>
+</p>
