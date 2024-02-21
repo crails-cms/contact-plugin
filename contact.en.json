@@ -1,0 +1,19 @@
+{
+  "admin": {
+    "menu": {
+      "contact_page": "Contact"
+    },
+    "contact_page": {
+      "subtitle": "Configure your contact form"
+    }
+  },
+  "contact-page": {
+    "form": {
+      "email": "Your e-mail address",
+      "message": "Your message",
+      "submit": "Send"
+    },
+    "submit-error": "A technical mishap prevented the sending of your message. A technician has been warned and will promptly solve the issue. Please try again later.",
+    "form-invalid": "The form hasn't been entirely filled."
+  }
+}

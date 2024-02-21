@@ -1,0 +1,19 @@
+{
+  "admin": {
+    "menu": {
+      "contact_page": "Contacto"
+    },
+    "contact_page": {
+      "subtitle": "Configurar su formulario de contacto"
+    }
+  },
+  "contact-page": {
+    "form": {
+      "email": "Su correo electronico",
+      "message": "Su mensaje",
+      "submit": "Enviar"
+    },
+    "submit-error": "Un problema tecnico impidió el envío de su mensaje. Un técnico ha sido notificado y arreglará el problema rápidamente. Por favor, inténtelo de nuevo mas tarde.",
+    "form-invalid": "El formulario de envío debe ser totalmente completado."
+  }
+}

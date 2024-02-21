@@ -34,3 +34,4 @@ target_link_libraries(contact
   crails-app)
 install(TARGETS contact LIBRARY DESTINATION lib/libcrails-cms)
 install(FILES contact.description.json contact.description.png DESTINATION lib/libcrails-cms)
+install(FILES contact.fr.json contact.en.json contact.es.json DESTINATION locales)

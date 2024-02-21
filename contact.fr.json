@@ -1,0 +1,19 @@
+{
+  "admin": {
+    "menu": {
+      "contact_page": "Contact"
+    },
+    "contact_page": {
+      "subtitle": "Configurez votre formulaire de contact"
+    }
+  },
+  "contact-page": {
+    "form": {
+      "email": "Votre e-mail",
+      "message": "Votre message",
+      "submit": "Envoyer"
+    },
+    "submit-error": "Un problème technique a empeché l'envoi de votre message. Un technicien a été prévenu et résoudra le problème promptement. Veuillez réessayer ultérieurement.",
+    "form-invalid": "Le formulaire n'a pas été correctement rempli."
+  }
+}
