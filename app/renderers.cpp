@@ -1,4 +1,6 @@
 #include <crails/renderer.hpp>
+#include <crails/cms/views/injector.hpp>
+#include "controllers/contact.hpp"
 #include "../lib/renderers/contact_plugin_html_renderer.hpp"
 #include <iostream>
 
@@ -19,4 +21,7 @@ void initialize_plugin_renderers()
   ContactPluginHtmlRenderer plugin_html;
 
   initialize_renderer(renderers, plugin_html);
+  Crails::Cms::Injector::register_injectable<
+    ContactController::Injectable
+  >("contact");
 }

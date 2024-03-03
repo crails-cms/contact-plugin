@@ -6,6 +6,26 @@
 
 using namespace std;
 
+ContactController::Injectable::Injectable(const Crails::SharedVars& vars, Crails::RenderTarget& sink)
+  : Crails::Cms::Injectable(vars, sink)
+{
+}
+
+bool ContactController::Injectable::require_page_settings()
+{
+  return page_settings ? true : database.find_one(page_settings);
+}
+
+void ContactController::Injectable::run()
+{
+  if (require_page_settings())
+  {
+    render("contact/form", {
+      {"contact_page", reinterpret_cast<const ContactPage*>(page_settings.get())}
+    });
+  }
+}
+
 ContactController::ContactController(Crails::Context& context) : ApplicationController(context)
 {
 }
@@ -13,9 +33,10 @@ ContactController::ContactController(Crails::Context& context) : ApplicationCont
 void ContactController::initialize()
 {
   ApplicationController::initialize();
-  if (!database.find_one(page_settings))
+  injectable = std::make_unique<Injectable>(vars, response);
+  if (!injectable->require_page_settings())
     respond_with(Crails::HttpStatus::not_found);
-  vars["contact_page"] = reinterpret_cast<const ContactPage*>(page_settings.get());
+  vars["contact_page"] = injectable->get_page_settings();
 }
 
 void ContactController::finalize()
@@ -25,7 +46,7 @@ void ContactController::finalize()
 
 void ContactController::show()
 {
-  render("contact/form");
+  injectable->run();
 }
 
 void ContactController::submit()
@@ -49,7 +70,7 @@ void ContactController::submit()
   {
     vars["failure"] = true;
     vars["error_message"] = i18n::t("contact-page.form-invalid");
-    render("contact/form");
+    injectable->run();
   }
 }
 
@@ -57,5 +78,5 @@ void ContactController::submit_error()
 {
   vars["failure"] = true;
   vars["error_message"] = i18n::t("contact-page.submit-error");
-  render("contact/form");
+  injectable->run();
 }
