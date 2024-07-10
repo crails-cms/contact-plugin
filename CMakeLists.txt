@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(crails-cms-contact-plugin)
 
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-undefined")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O1")
 
 find_package(PkgConfig)
 pkg_check_modules(CRAILS_CMS REQUIRED
@@ -11,6 +12,7 @@ pkg_check_modules(CRAILS_CMS REQUIRED
   libcrails-json-views>=2.0.0
   libcrails-html-views>=2.0.0
   libcrails-mail>=2.0.0
+  libcrails-captcha>=2.0.0
 )
 
 include_directories(. ../.. ${CRAILS_CMS_INCLUDE_DIRS})

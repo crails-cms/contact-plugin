@@ -16,6 +16,8 @@ public:
 
   void on_error_occured(const std::exception& error)
   {
-    reinterpret_cast<ContactController*>(controller.get())->submit_error();
+    reinterpret_cast<ContactController*>(controller.get())->submit_error(
+      i18n::t("contact-page.submit-error")
+    );
   }
 };

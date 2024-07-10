@@ -11,9 +11,11 @@
     "form": {
       "email": "Votre e-mail",
       "message": "Votre message",
+      "captcha": "Test de Turing",
       "submit": "Envoyer"
     },
     "submit-error": "Un problème technique a empeché l'envoi de votre message. Un technicien a été prévenu et résoudra le problème promptement. Veuillez réessayer ultérieurement.",
+    "captcha-invalid": "Vous n'avez pas passé le test de Turing.",
     "form-invalid": "Le formulaire n'a pas été correctement rempli."
   }
 }

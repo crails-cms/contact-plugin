@@ -1,21 +1,25 @@
+#include <crails/cms/models/settings.hpp>
 #include <crails/cms/views/style.hpp>
 #include <crails/i18n.hpp>
+#include <crails/captcha/default.hpp>
 #include "app/models/contact_page.hpp"
 
-const Crails::Cms::Style& style = Crails::Cms::Style::singleton::require();
+const Crails::Cms::Settings& @settings;
+const Crails::Cms::Style& style = settings.get_style();
 const ContactPage& @contact_page;
 const std::string @sender = std::string();
 const std::string @message = std::string();
 const std::string @error_message = std::string();
+const std::string @captcha_field = std::string();
 bool @failure = false;
 
 // END LINKING
-<% if (contact_page.get_content().length()) do %>
-  <%= style.section(0, {{"class","contact-content"}}) yields %>
-    <h1>Contact</h1>
+<%= style.section(0, {{"class","contact-content"}}) yields %>
+  <h1>Contact</h1>
+  <% if (contact_page.get_content().length()) do %>
     <%= contact_page.get_content() %>
-  <% yields-end %>
-<% end %>
+  <% end %>
+<% yields-end %>
 
 <%= style.section(1, {{"class","contact-form"}}) yields %>
   <% if (failure) do %>
@@ -38,6 +42,13 @@ bool @failure = false;
       </label>
       <%= text_area("contact[message]", message) %>
     <% yields-end %>
+
+    <% if (captcha_field.length() > 0) do -%>
+      <%= style.form_group() yields %>
+        <label><%= i18n::t("contact-page.form.captcha") %></label>
+        <%= captcha_field %>
+      <% yields-end %>
+    <% end -%>
 
     <%= tag("input", {
       {"type","submit"},

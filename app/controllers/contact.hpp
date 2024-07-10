@@ -14,6 +14,8 @@ public:
     bool require_page_settings();
     void run() override;
     const ContactPage* get_page_settings() const { return page_settings.get(); }
+    void set_captcha_field(const std::string&);
+    void set_error_message(const std::string&);
   };
 
   ContactController(Crails::Context&);
@@ -24,7 +26,8 @@ public:
   void show();
   void submit();
 
-  void submit_error();
+  void submit_error(const std::string& message);
+  void submit_mail(Data form);
 
   const ContactPage& get_page_settings() const { return *(injectable->get_page_settings()); }
 
